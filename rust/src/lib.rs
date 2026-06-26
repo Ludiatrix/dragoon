@@ -1,3 +1,4 @@
+mod dragon;
 mod player;
 mod prelude;
 
@@ -7,5 +8,7 @@ use godot::prelude::*;
 #[bevy_app]
 fn build_app(app: &mut App) {
     app.add_plugins(GodotDefaultPlugins)
-        .add_plugins(player::PlayerPlugin);
+        .add_plugins(player::PlayerPlugin)
+        .add_plugins(dragon::DragonPlugin);
 }
+

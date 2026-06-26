@@ -3,15 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dhpcf8yek04q7"
-path="res://.godot/imported/T_Dragon_Bk_D.TGA-fd650f643e49688128c5afaf7f6263e2.ctex"
-metadata={
-"vram_texture": false
-}
+valid=false
 
 [deps]
 
 source_file="res://art/StylizedDragonPack/Textures/Dragon/Bonus/T_Dragon_Bk_D.TGA"
-dest_files=["res://.godot/imported/T_Dragon_Bk_D.TGA-fd650f643e49688128c5afaf7f6263e2.ctex"]
 
 [params]
 

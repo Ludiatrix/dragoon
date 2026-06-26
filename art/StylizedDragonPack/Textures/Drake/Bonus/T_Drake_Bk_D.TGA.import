@@ -3,15 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ggqporl3qq2f"
-path="res://.godot/imported/T_Drake_Bk_D.TGA-e39c6c905ae0c596ab91e5bf718597bd.ctex"
-metadata={
-"vram_texture": false
-}
+valid=false
 
 [deps]
 
 source_file="res://art/StylizedDragonPack/Textures/Drake/Bonus/T_Drake_Bk_D.TGA"
-dest_files=["res://.godot/imported/T_Drake_Bk_D.TGA-e39c6c905ae0c596ab91e5bf718597bd.ctex"]
 
 [params]
 

@@ -11,12 +11,16 @@ namespace ExampleProject
 		[Export]
 		public Resource Model { get; set; }
 
-		public EnemyStats() : this(0, null) {}
+		[Export]
+		public Resource Ai { get; set; }
 
-		public EnemyStats(int maxHealth, Resource model)
+		public EnemyStats() : this(0, null, null) {}
+
+		public EnemyStats(int maxHealth, Resource model, Resource ai)
 		{
 			MaxHealth = maxHealth;
 			Model = model;
+			Ai = ai;
 		}
 	}
 }

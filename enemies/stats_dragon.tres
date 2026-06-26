@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://cao7ijpinf2gy"]
 
+[ext_resource type="Resource" uid="uid://dk3ai8dragon01" path="res://enemies/ai_dragon.tres" id="1_ai"]
 [ext_resource type="PackedScene" uid="uid://cispyt02ahsxg" path="res://enemies/model_dragon.tscn" id="1_ohk5n"]
 [ext_resource type="Script" uid="uid://157l2o7vcjrm" path="res://enemies/EnemyStats.cs" id="1_wihif"]
 
@@ -7,4 +8,5 @@
 script = ExtResource("1_wihif")
 MaxHealth = 100
 Model = ExtResource("1_ohk5n")
+Ai = ExtResource("1_ai")
 metadata/_custom_type_script = "uid://157l2o7vcjrm"

@@ -3,15 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dr4wm4o4o501f"
-path="res://.godot/imported/T_DragonWhelp_Bk_D.TGA-ecf6472fab973949c102da09ee6fe513.ctex"
-metadata={
-"vram_texture": false
-}
+valid=false
 
 [deps]
 
 source_file="res://art/StylizedDragonPack/Textures/DragonWhelp/Bonus/T_DragonWhelp_Bk_D.TGA"
-dest_files=["res://.godot/imported/T_DragonWhelp_Bk_D.TGA-ecf6472fab973949c102da09ee6fe513.ctex"]
 
 [params]
 

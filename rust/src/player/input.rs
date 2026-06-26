@@ -1,42 +1,57 @@
 use crate::prelude::*;
+
 use godot::{classes::Input, obj::Singleton};
 
 use super::components::*;
 
-pub fn read_player_input(
-    mut players: Query<(&mut PlayerInputState, &mut DesiredMoveDirection), With<Player>>,
-) {
-    let input = Input::singleton();
+#[derive(QueryData)]
+#[query_data(mutable)]
+pub struct PlayerInput {
+    pub state: &'static mut PlayerInputState,
+    pub desired_direction: &'static mut DesiredMoveDirection,
+}
 
-    let move_left = input.is_action_pressed("move_left");
-    let move_right = input.is_action_pressed("move_right");
-    let move_forward = input.is_action_pressed("move_forward");
-    let move_backward = input.is_action_pressed("move_backward");
+struct InputSnapshot {
+    move_left: bool,
+    move_right: bool,
+    move_forward: bool,
+    move_backward: bool,
+    jump_pressed: bool,
+    jump_held: bool,
+    jump_released: bool,
+}
 
-    // Jump is edge-triggered.
-    let jump = input.is_action_just_pressed("jump");
+impl InputSnapshot {
+    fn from_godot() -> Self {
+        let input = Input::singleton();
 
-    for (mut input_state, mut desired_direction) in &mut players {
-        input_state.move_left = move_left;
-        input_state.move_right = move_right;
-        input_state.move_forward = move_forward;
-        input_state.move_backward = move_backward;
-        input_state.jump = jump;
+        Self {
+            move_left: input.is_action_pressed("move_left"),
+            move_right: input.is_action_pressed("move_right"),
+            move_forward: input.is_action_pressed("move_forward"),
+            move_backward: input.is_action_pressed("move_backward"),
+            jump_pressed: input.is_action_just_pressed("jump"),
+            jump_held: input.is_action_pressed("jump"),
+            jump_released: input.is_action_just_released("jump"),
+        }
+    }
+}
 
-        let x =
-            if input_state.move_right { 1.0 } else { 0.0 }
-            - if input_state.move_left { 1.0 } else { 0.0 };
+pub fn read_player_input(mut players: Query<PlayerInput, With<Player>>) {
+    let input = InputSnapshot::from_godot();
 
-        let z =
-            if input_state.move_backward { 1.0 } else { 0.0 }
-            - if input_state.move_forward { 1.0 } else { 0.0 };
+    for mut player in &mut players {
+        player.state.set_movement(
+            input.move_left,
+            input.move_right,
+            input.move_forward,
+            input.move_backward,
+        );
 
-        let direction = Vec3::new(x, 0.0, z);
+        player
+            .state
+            .set_jump(input.jump_pressed, input.jump_held, input.jump_released);
 
-        desired_direction.0 = if direction.length_squared() > 0.0 {
-            direction.normalize()
-        } else {
-            Vec3::ZERO
-        };
+        *player.desired_direction = DesiredMoveDirection::from_input(&player.state);
     }
 }

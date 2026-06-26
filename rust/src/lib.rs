@@ -11,3 +11,4 @@ fn build_app(app: &mut App) {
         .add_plugins(player::PlayerPlugin)
         .add_plugins(dragon::DragonPlugin);
 }
+

@@ -3,15 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cnwft72j20155"
-path="res://.godot/imported/T_ElderDragon_Bk_D.TGA-c0ae108edcd80c54e36ddfd87ec6357b.ctex"
-metadata={
-"vram_texture": false
-}
+valid=false
 
 [deps]
 
 source_file="res://art/StylizedDragonPack/Textures/ElderDragon/Bonus/T_ElderDragon_Bk_D.TGA"
-dest_files=["res://.godot/imported/T_ElderDragon_Bk_D.TGA-c0ae108edcd80c54e36ddfd87ec6357b.ctex"]
 
 [params]
 

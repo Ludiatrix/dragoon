@@ -1,0 +1,16 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dtu8yr7g3s5cd"]
+
+[ext_resource type="Texture2D" uid="uid://cxg5c1j76l42h" path="res://art/StylizedDragonPack/Textures/Dragon/T_Dragon_Rd_D.tga" id="1_fggo3"]
+[ext_resource type="Texture2D" uid="uid://dfvbwkemikox4" path="res://art/StylizedDragonPack/Textures/Dragon/T_Dragon_AO.tga" id="2_s2w32"]
+[ext_resource type="Texture2D" uid="uid://8d531xxdfo05" path="res://art/StylizedDragonPack/Textures/Dragon/T_Dragon_E.tga" id="3_sb8qu"]
+[ext_resource type="Texture2D" uid="uid://cs8ab3s7anjxb" path="res://art/StylizedDragonPack/Textures/Dragon/T_Dragon_N.tga" id="4_mxjvb"]
+
+[resource]
+albedo_texture = ExtResource("1_fggo3")
+roughness = 0.7
+emission_enabled = true
+emission_texture = ExtResource("3_sb8qu")
+normal_enabled = true
+normal_texture = ExtResource("4_mxjvb")
+ao_enabled = true
+ao_texture = ExtResource("2_s2w32")

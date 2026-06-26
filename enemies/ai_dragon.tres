@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EnemyAiConfig" format=3 uid="uid://0ga4p3x2ta1u"]
+
+[ext_resource type="Script" uid="uid://bqx7m2k8nwp4f" path="res://enemies/EnemyAiConfig.cs" id="1_ai"]
+
+[resource]
+script = ExtResource("1_ai")
+WanderRadius = 20.0
+RepickSecs = 3.0
+StopDistance = 1.0
+WalkSpeed = 2.5
+FlySpeed = 5.0
+FlyYMin = 5.0
+FlyYMax = 8.0
+FlyChance = 0.5
+PlayAreaHalf = 30.0
+MinWanderDistance = 5.0
+TurnSpeedRad = 2.5
+AnimCrossfadeSecs = 0.5
+metadata/_custom_type_script = "uid://bqx7m2k8nwp4f"

@@ -3,3 +3,4 @@
 /android/
 rust/target/
 *.lock
+.idea/

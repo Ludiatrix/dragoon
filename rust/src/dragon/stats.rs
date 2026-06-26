@@ -1,3 +1,4 @@
+use super::ai_config::EnemyAiConfig;
 use crate::prelude::*;
 use bevy::asset::{io::Reader, AssetLoader, LoadContext};
 use bevy::reflect::TypePath;
@@ -10,6 +11,7 @@ use std::fmt;
 pub struct EnemyStats {
     pub max_health: i32,
     pub model: Handle<GodotResource>,
+    pub ai: Handle<EnemyAiConfig>,
 }
 
 #[derive(Debug)]
@@ -53,7 +55,29 @@ fn enemy_stats_from_resource(
     let bevy_path = path.strip_prefix("res://").unwrap_or(&path).to_string();
     let model = load_context.load(bevy_path);
 
-    Ok(EnemyStats { max_health, model })
+    let ai: Gd<GodotBaseResource> = resource
+        .get("Ai")
+        .try_to()
+        .map_err(|_| EnemyStatsLoadError::InvalidProperty("Ai".into()))?;
+
+    let ai_path = ai.get_path().to_string();
+    if ai_path.is_empty() {
+        return Err(EnemyStatsLoadError::InvalidProperty(
+            "Ai resource has no path".into(),
+        ));
+    }
+
+    let ai_bevy_path = ai_path
+        .strip_prefix("res://")
+        .unwrap_or(&ai_path)
+        .to_string();
+    let ai = load_context.load(ai_bevy_path);
+
+    Ok(EnemyStats {
+        max_health,
+        model,
+        ai,
+    })
 }
 
 #[derive(Default, TypePath)]

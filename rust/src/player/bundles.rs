@@ -1,5 +1,5 @@
-use crate::prelude::*;
 use super::components::*;
+use crate::prelude::*;
 
 #[derive(Bundle, GodotNode)]
 #[godot_node(base(CharacterBody3D), class_name(PlayerNode))]

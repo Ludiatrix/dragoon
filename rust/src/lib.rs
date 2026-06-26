@@ -1,5 +1,5 @@
-mod prelude;
 mod player;
+mod prelude;
 
 use crate::prelude::*;
 use godot::prelude::*;

@@ -2,51 +2,37 @@ use crate::prelude::*;
 
 use super::components::*;
 
+#[derive(QueryData)]
+#[query_data(mutable)]
+pub struct PlayerJumpCharge {
+    pub input: &'static PlayerInputState,
+    pub charge: &'static mut JumpCharge,
+    pub damper: &'static mut MoveDamper,
+}
+
 pub fn update_jump_charge(
     physics_delta: Res<PhysicsDelta>,
-    mut players: Query<(
-        &PlayerInputState,
-        &mut JumpCharge,
-        &mut MoveDamper,
-    ), With<Player>>,
+    mut players: Query<PlayerJumpCharge, With<Player>>,
 ) {
     let delta = physics_delta.delta_seconds;
 
-    for (input, mut charge, mut damper) in &mut players {
-        if input.jump_pressed {
-            charge.is_charging = true;
-            charge.elapsed = 0.0;
-            charge.current = Charge::Low;
-            charge.queued_jump = None;
+    for mut player in &mut players {
+        if player.input.jump_pressed {
+            player.charge.start();
         }
 
-        if charge.is_charging && input.jump_held {
-            charge.elapsed += delta;
-
-            charge.current = if charge.elapsed >= 2.0 {
-                Charge::Max
-            } else if charge.elapsed >= 1.0 {
-                Charge::Medium
-            } else {
-                Charge::Low
-            };
-
-            damper.0 = match charge.current {
-                Charge::Low => 0.65,
-                Charge::Medium => 0.25,
-                Charge::Max => 0.0,
-            };
+        if player.charge.is_charging && player.input.jump_held {
+            player.charge.tick(delta);
+            player.damper.apply_charge(player.charge.current);
         }
 
-        if charge.is_charging && input.jump_released {
-            charge.queued_jump = Some(charge.current);
-            charge.is_charging = false;
-            charge.elapsed = 0.0;
-            damper.0 = 1.0;
+        if player.charge.is_charging && player.input.jump_released {
+            player.charge.release();
+            player.damper.reset();
         }
 
-        if !charge.is_charging && charge.queued_jump.is_none() {
-            damper.0 = 1.0;
+        if !player.charge.is_charging && player.charge.queued_jump.is_none() {
+            player.damper.reset();
         }
     }
 }

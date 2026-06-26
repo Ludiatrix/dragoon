@@ -1,10 +1,26 @@
-use bevy::ecs::message::Message;
-use crate::player::components::Charge;
+use crate::prelude::*;
 
-// Jump Held Message
-#[derive(Message)]
-pub(crate) struct OnJumpHeld(Charge);
+use super::components::Charge;
 
-// Jump Release Message
-#[derive(Message)]
-pub(crate) struct OnJumpReleased(f32);
+#[derive(Message, Debug, Clone, Copy)]
+pub struct JumpChargeStarted {
+    pub entity: Entity,
+}
+
+#[derive(Message, Debug, Clone, Copy)]
+pub struct JumpChargeChanged {
+    pub entity: Entity,
+    pub charge: Charge,
+}
+
+#[derive(Message, Debug, Clone, Copy)]
+pub struct JumpChargeReleased {
+    pub entity: Entity,
+    pub charge: Charge,
+}
+
+#[derive(Message, Debug, Clone, Copy)]
+pub struct JumpLaunched {
+    pub entity: Entity,
+    pub charge: Charge,
+}

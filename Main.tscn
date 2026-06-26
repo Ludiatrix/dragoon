@@ -10,6 +10,15 @@ size = Vector3(60, 2, 60)
 [sub_resource type="BoxMesh" id="BoxMesh_qv4v0"]
 size = Vector3(60, 2, 60)
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_glv2v"]
+
+[sub_resource type="Sky" id="Sky_rxg2q"]
+sky_material = SubResource("ProceduralSkyMaterial_glv2v")
+
+[sub_resource type="Environment" id="Environment_fjp03"]
+background_mode = 2
+sky = SubResource("Sky_rxg2q")
+
 [node name="World" type="Node3D" unique_id=181307108]
 
 [node name="PlayerNode" type="PlayerNode" parent="." unique_id=933625228]
@@ -30,7 +39,6 @@ transform = Transform3D(1, 0, 0, 0, 0.9154543, 0.4024219, 0, -0.4024219, 0.91545
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.8625546, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1824974846]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 shape = SubResource("BoxShape3D_xhwl2")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1801961433]
@@ -39,3 +47,10 @@ mesh = SubResource("BoxMesh_qv4v0")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=831653316]
 transform = Transform3D(1, 0, 0, 0, 0.7864016, 0.61771554, 0, -0.61771554, 0.7864016, 0, 11.474846, 0)
 light_energy = 1.721
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1191531169]
+environment = SubResource("Environment_fjp03")
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="." unique_id=391165232]
+size = Vector3(2000, 2000, 2000)

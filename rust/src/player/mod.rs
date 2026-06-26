@@ -2,6 +2,7 @@ pub mod components;
 pub mod bundles;
 pub mod input;
 pub mod movement;
+pub mod jump_charge;
 use crate::prelude::*;
 
 pub struct PlayerPlugin;
@@ -14,6 +15,7 @@ impl Plugin for PlayerPlugin {
             PhysicsUpdate,
             (
                 input::read_player_input,
+                jump_charge::update_jump_charge,
                 movement::move_player,
             )
                 .chain(),

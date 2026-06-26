@@ -18,4 +18,6 @@ pub struct PlayerBundle {
     pub desired_move_direction: DesiredMoveDirection,
     pub vertical_velocity: VerticalVelocity,
     pub input_state: PlayerInputState,
+    pub move_damper: MoveDamper,
+    pub jump_charge: JumpCharge,
 }

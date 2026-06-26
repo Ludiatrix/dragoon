@@ -13,15 +13,18 @@ pub fn read_player_input(
     let move_forward = input.is_action_pressed("move_forward");
     let move_backward = input.is_action_pressed("move_backward");
 
-    // Jump is edge-triggered.
-    let jump = input.is_action_just_pressed("jump");
+    let jump_pressed = input.is_action_just_pressed("jump");
+    let jump_held = input.is_action_pressed("jump");
+    let jump_released = input.is_action_just_released("jump");
 
     for (mut input_state, mut desired_direction) in &mut players {
         input_state.move_left = move_left;
         input_state.move_right = move_right;
         input_state.move_forward = move_forward;
         input_state.move_backward = move_backward;
-        input_state.jump = jump;
+        input_state.jump_pressed = jump_pressed;
+        input_state.jump_held = jump_held;
+        input_state.jump_released = jump_released;
 
         let x =
             if input_state.move_right { 1.0 } else { 0.0 }

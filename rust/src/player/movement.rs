@@ -25,9 +25,10 @@ pub fn move_player(
         &MoveSpeed,
         &JumpVelocity,
         &Gravity,
-        &PlayerInputState,
         &DesiredMoveDirection,
+        &MoveDamper,
         &mut VerticalVelocity,
+        &mut JumpCharge,
         &GodotNodeHandle,
     ), With<Player>>,
 ) {
@@ -37,9 +38,10 @@ pub fn move_player(
         move_speed,
         jump_velocity,
         gravity,
-        input_state,
         desired_direction,
+        move_damper,
         mut vertical_velocity,
+        mut jump_charge,
         node_handle,
     ) in &mut players {
         let Some(mut body) = godot.try_get::<CharacterBody3D>(*node_handle) else {
@@ -53,25 +55,37 @@ pub fn move_player(
             vertical_velocity.0 = 0.0;
         }
 
-        if input_state.jump && is_on_floor {
-            vertical_velocity.0 = jump_velocity.0;
+        if is_on_floor {
+            if let Some(charge) = jump_charge.queued_jump.take() {
+                vertical_velocity.0 = jump_velocity_for_charge(jump_velocity.0, charge);
+            }
+        } else {
+            jump_charge.queued_jump = None;
         }
 
         if !is_on_floor {
             vertical_velocity.0 -= gravity.0 * delta;
         }
 
-        let horizontal_velocity = desired_direction.0 * move_speed.0;
+        let horizontal_velocity =
+            desired_direction.0 * move_speed.0 * move_damper.0;
 
-        let velocity = Vector3::new(
+        body.set_velocity(Vector3::new(
             horizontal_velocity.x,
             vertical_velocity.0,
             horizontal_velocity.z,
-        );
+        ));
 
-        body.set_velocity(velocity);
         body.move_and_slide();
 
         vertical_velocity.0 = body.get_velocity().y;
+    }
+}
+
+fn jump_velocity_for_charge(base_jump_velocity: f32, charge: Charge) -> f32 {
+    match charge {
+        Charge::Low => base_jump_velocity,
+        Charge::Medium => base_jump_velocity * 1.5,
+        Charge::Max => base_jump_velocity * 2.1,
     }
 }
